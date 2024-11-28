@@ -15,6 +15,10 @@ import React from "react";
 import { useMatch, useNavigate, useResolvedPath } from "react-router-dom";
 import { useDrawerContext } from "../../contexts";
 
+interface IMenuLateral {
+  children: React.ReactNode;
+}
+
 interface IListItemLinkProps {
   to: string;
   icon: string;
@@ -50,7 +54,7 @@ const ListItemLink: React.FC<IListItemLinkProps> = ({
   );
 };
 
-export const MenuLateral: React.FC<any> = ({ children }) => {
+export const MenuLateral: React.FC<IMenuLateral> = ({ children }) => {
   const theme = useTheme();
 
   const smDown = useMediaQuery(theme.breakpoints.down("sm"));

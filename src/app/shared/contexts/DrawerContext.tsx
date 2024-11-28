@@ -1,5 +1,9 @@
 import { createContext, useCallback, useContext, useState } from "react";
 
+interface IAppDrawerProvider {
+  children: React.ReactNode;
+}
+
 interface IDrawerOption {
   path: string;
   icon: string;
@@ -19,7 +23,7 @@ export const useDrawerContext = () => {
   return useContext(DrawerContext);
 };
 
-export const AppDrawerProvider: React.FC<any> = ({ children }) => {
+export const AppDrawerProvider: React.FC<IAppDrawerProvider> = ({ children }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [drawerOptions, setdrawerOptions] = useState<IDrawerOption[]>([]);
 

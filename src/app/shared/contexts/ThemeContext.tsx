@@ -8,6 +8,10 @@ import {
 } from "react";
 import { DarkTheme, LightTheme } from "../themes";
 
+interface IAppThemeProvider {
+  children: React.ReactNode;
+}
+
 interface IThemeContextData {
   themeName: "light" | "dark";
   toggleTheme: () => void;
@@ -19,7 +23,7 @@ export const useAppThemeContext = () => {
   return useContext(ThemeContext);
 };
 
-export const AppThemeProvider: React.FC<any> = ({ children }) => {
+export const AppThemeProvider: React.FC<IAppThemeProvider> = ({ children }) => {
   const [themeName, setThemeName] = useState<"light" | "dark">("light");
 
   const toggleTheme = useCallback(() => {
