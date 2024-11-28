@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useMatch, useNavigate, useResolvedPath } from "react-router-dom";
-import { useDrawerContext } from "../../contexts";
+import { useAppThemeContext, useDrawerContext } from "../../contexts";
 
 interface IMenuLateral {
   children: React.ReactNode;
@@ -59,6 +59,7 @@ export const MenuLateral: React.FC<IMenuLateral> = ({ children }) => {
 
   const smDown = useMediaQuery(theme.breakpoints.down("sm"));
   const { isDrawerOpen, toggleDrawerOpen, drawerOptions } = useDrawerContext();
+  const { toggleTheme } = useAppThemeContext();
 
   return (
     <>
@@ -97,6 +98,17 @@ export const MenuLateral: React.FC<IMenuLateral> = ({ children }) => {
                   onClick={smDown ? toggleDrawerOpen : undefined}
                 />
               ))}
+            </List>
+          </Box>
+          <Box>
+            <List component="nav">
+              <ListItemButton onClick={toggleTheme}>
+                <ListItemIcon>
+                  <Icon>dark_mode</Icon>
+                  <Icon>light_mode</Icon>
+                </ListItemIcon>
+                <ListItemText primary={"Alteranar tema"} />
+              </ListItemButton>
             </List>
           </Box>
         </Box>
