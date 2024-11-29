@@ -15,19 +15,20 @@ interface IDetalhePessoa {
   nomeCompleto: string;
 }
 
-type IPessoasComTotalCount = {
+type TPessoasComTotalCount = {
   data: IListagemPessoa[];
   totalCount: number;
 };
 
-const url = "/pessoas";
+const urlService = "/pessoas";
 
 const getAll = async (
   page = 1,
   filter = ""
-): Promise<IPessoasComTotalCount | Error> => {
+): Promise<TPessoasComTotalCount | Error> => {
   try {
-    const urlRelativa = `${url}?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&nomeCompleto_like=${filter}`;
+    const urlRelativa = `${urlService}?_page=${page}&_limit=${Environment.LIMITE_DE_LINHAS}&nomeCompleto_like=${filter}`;
+
     const { data, headers } = await Api.get(urlRelativa);
 
     if (data) {
@@ -38,67 +39,81 @@ const getAll = async (
         ),
       };
     }
-    return new Error("Erro ao tentar listar registros!");
-  } catch (error: any) {
+
+    return new Error("Erro ao listar os registros.");
+  } catch (error) {
+    console.error(error);
     return new Error(
-      (error as { message: string }).message || "Erro ao tentar consultar a api"
+      (error as { message: string }).message || "Erro ao listar os registros."
     );
   }
 };
 
 const getById = async (id: number): Promise<IDetalhePessoa | Error> => {
   try {
-    const { data } = await Api.get(`${url}/${id}`);
-    return data;
-  } catch (error: any) {
+    const { data } = await Api.get(`${urlService}/${id}`);
+
+    if (data) {
+      return data;
+    }
+
+    return new Error("Erro ao consultar o registro.");
+  } catch (error) {
+    console.error(error);
     return new Error(
-      (error as { message: string }).message || "Erro ao tentar consultar a api"
+      (error as { message: string }).message || "Erro ao consultar o registro."
     );
   }
 };
 
 const create = async (
-  body: Omit<IDetalhePessoa, "id">
-): Promise<IDetalhePessoa | Error> => {
+  dados: Omit<IDetalhePessoa, "id">
+): Promise<number | Error> => {
   try {
-    const { data } = await Api.post<any>(url, body);
-    return data;
-  } catch (error: any) {
+    const { data } = await Api.post<IDetalhePessoa>("${urlService}", dados);
+
+    if (data) {
+      return data.id;
+    }
+
+    return new Error("Erro ao criar o registro.");
+  } catch (error) {
+    console.error(error);
     return new Error(
-      (error as { message: string }).message || "Erro ao tentar consultar a api"
+      (error as { message: string }).message || "Erro ao criar o registro."
     );
   }
 };
 
 const updateById = async (
-  id: string,
-  body: IDetalhePessoa
-): Promise<IDetalhePessoa | Error> => {
+  id: number,
+  dados: IDetalhePessoa
+): Promise<void | Error> => {
   try {
-    const { data } = await Api.put(`${url}/${id}`, body);
-    return data;
-  } catch (error: any) {
+    await Api.put(`${urlService}/${id}`, dados);
+  } catch (error) {
+    console.error(error);
     return new Error(
-      (error as { message: string }).message || "Erro ao tentar consultar a api"
+      (error as { message: string }).message || "Erro ao atualizar o registro."
     );
   }
 };
 
-const deleteById = async (id: string): Promise<undefined | Error> => {
+const deleteById = async (id: number): Promise<void | Error> => {
   try {
-    await Api.delete(`${url}/${id}`);
-    return undefined;
-  } catch (error: any) {
+    await Api.delete(`${urlService}/${id}`);
+  } catch (error) {
+    console.error(error);
     return new Error(
-      (error as { message: string }).message || "Erro ao tentar consultar a api"
+      (error as { message: string }).message || "Erro ao apagar o registro."
     );
   }
 };
 
-export const TarefasService = {
+export const PessoasService = {
   getAll,
-  getById,
   create,
+  getById,
   updateById,
   deleteById,
 };
