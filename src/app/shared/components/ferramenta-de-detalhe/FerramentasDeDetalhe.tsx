@@ -42,7 +42,7 @@ export const FerramentasDeDetalhe: React.FC<IFerramentasDeDetalheProps> = ({
   mostrarBotaoVoltar = true,
   mostrarBotaoApagar = true,
   mostrarBotaoSalvar = true,
-  mostrarBotaoSalvarEFechar = false,
+  mostrarBotaoSalvarEFechar = true,
 
   mostrarBotaoNovoCarregando = false,
   mostrarBotaoVoltarCarregando = false,
@@ -60,6 +60,7 @@ export const FerramentasDeDetalhe: React.FC<IFerramentasDeDetalheProps> = ({
 
   const smDown = useMediaQuery(theme.breakpoints.down("sm"));
   const mdDown = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
     <Box
       marginX={1}
@@ -134,7 +135,7 @@ export const FerramentasDeDetalhe: React.FC<IFerramentasDeDetalheProps> = ({
         </Button>
       )}
       {mostrarBotaoApagarCarregando && <Skeleton height={60} width={110} />}
-      {mostrarBotaoNovo && !mostrarBotaoNovoCarregando && !smDown && (
+      {mostrarBotaoNovo && !mostrarBotaoNovoCarregando && !smDown && !mdDown && (
         <Button
           color="primary"
           disableElevation
@@ -156,7 +157,8 @@ export const FerramentasDeDetalhe: React.FC<IFerramentasDeDetalheProps> = ({
         <Skeleton height={60} width={110} />
       )}
 
-      {mostrarBotaoVoltar &&
+
+      { mostrarBotaoVoltar &&
         (mostrarBotaoNovo ||
           mostrarBotaoApagar ||
           mostrarBotaoSalvar ||
