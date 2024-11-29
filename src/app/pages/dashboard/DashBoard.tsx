@@ -7,8 +7,7 @@ export const DashBoard = () => {
       titulo="Pagina inicial"
       barraDeFerramentas={
         <FerramentasDeDetalhe
-          mostrarBotaoNovo={false}
-          mostrarBotaoSalvarEFecharCarregando
+        mostrarBotaoSalvarEFechar
         />
       }
     >
