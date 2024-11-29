@@ -21,6 +21,7 @@ export const FerramentasDaListagem: React.FC<IFerramentasDaListagemProps> = ({
   mostrarBotaoNovo = true,
   aoClicarEmNovo,
 }) => {
+
   const theme = useTheme();
 
   return (
