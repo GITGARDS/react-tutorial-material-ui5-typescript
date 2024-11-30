@@ -12,6 +12,10 @@ export const Environment = {
    */
   LISTAGEM_VAZIA: "Nenhum registro encontrado.",
   /**
+   * Texto exibido quando registro excluido com sucesso
+   */
+  EXCLUIDO_COM_SUCESSO: "Registro excluido com sucesso!",
+  /**
    * Url base de consultas dos dados dessa aplicacao
    */
   URL_BASE: "http://localhost:3001",

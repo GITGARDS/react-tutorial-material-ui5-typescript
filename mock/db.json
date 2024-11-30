@@ -7,12 +7,6 @@
       "nomeCompleto": "Juca da silva"
     },
     {
-      "id": "2",
-      "email": "registro2@email.com",
-      "cidadeId": 1,
-      "nomeCompleto": "registro2"
-    },
-    {
       "id": "3",
       "email": "registro3@email.com",
       "cidadeId": 1,
@@ -23,18 +17,6 @@
       "email": "registro4@email.com",
       "cidadeId": 1,
       "nomeCompleto": "registro4"
-    },
-    {
-      "id": "5",
-      "email": "registro5@email.com",
-      "cidadeId": 1,
-      "nomeCompleto": "registro5"
-    },
-    {
-      "id": "6",
-      "email": "registro6@email.com",
-      "cidadeId": 1,
-      "nomeCompleto": "registro6"
     },
     {
       "id": "7",
