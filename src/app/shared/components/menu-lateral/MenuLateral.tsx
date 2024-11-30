@@ -83,7 +83,7 @@ export const MenuLateral: React.FC<IMenuLateral> = ({ children }) => {
           >
             <Avatar
               alt="Remy Sharp"
-              src="https://s2-oglobo.glbimg.com/1uC1YFUzLFkEtReFAZW-WTsPT78=/0x0:1280x720/924x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_da025474c0c44edd99332dddb09cabe8/internal_photos/bs/2024/X/1/usgxkdQQKUBGIoyzYuQw/batman.jpg"
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_bquB5AsIieypjbrowgBRz8uekvW_NWdTKg&s"
               sx={{ width: theme.spacing(15), height: theme.spacing(15) }}
             />
           </Box>
