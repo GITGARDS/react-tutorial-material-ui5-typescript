@@ -27,8 +27,8 @@
     {
       "id": "8",
       "email": "registro8@email.com",
-      "cidadeId": 1,
-      "nomeCompleto": "registro8"
+      "nomeCompleto": "registro8",
+      "cidadeId": "8"
     },
     {
       "id": "9",
