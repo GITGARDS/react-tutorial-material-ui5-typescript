@@ -1,4 +1,6 @@
 import {
+  Icon,
+  IconButton,
   LinearProgress,
   Pagination,
   Paper,
@@ -11,7 +13,7 @@ import {
   TableRow,
 } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { FerramentasDaListagem } from "../../shared/components";
 import { Environment } from "../../shared/environment";
 import { useDebounce } from "../../shared/hooks";
@@ -24,6 +26,7 @@ import {
 export const ListagemDePessoas = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { debounce } = useDebounce(300, false);
+  const navigate = useNavigate();
 
   const [rows, setRows] = useState<IListagemPessoa[]>([]);
   const [totalCount, setTotalCount] = useState(0);
@@ -36,6 +39,21 @@ export const ListagemDePessoas = () => {
   const pagina = useMemo(() => {
     return Number(searchParams.get("pagina") || "1");
   }, [searchParams]);
+
+  const handleDelete = (id: number) => {
+    if (window.confirm("Deseja realmente excluir?")) {
+      PessoasService.deleteById(id).then((result) => {
+        if (result instanceof Error) {
+          alert(result.message);
+        } else {
+          setRows((oldRows) => {
+            return [...oldRows.filter((f) => f.id !== id)];
+          });
+          alert("Registro apagado com sucesso!");
+        }
+      });
+    }
+  };
 
   useEffect(() => {
     setIsLoading(true);
@@ -86,7 +104,17 @@ export const ListagemDePessoas = () => {
                 key={row.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell>{row.id}</TableCell>
+                <TableCell>
+                  <IconButton size="small" onClick={() => handleDelete(row.id)}>
+                    <Icon>delete</Icon>
+                  </IconButton>
+                  <IconButton
+                    size="small"
+                    onClick={() => navigate(`/pessoas/detalhe/${row.id}`)}
+                  >
+                    <Icon>edit</Icon>
+                  </IconButton>
+                </TableCell>
                 <TableCell>{row.nomeCompleto}</TableCell>
                 <TableCell>{row.email}</TableCell>
               </TableRow>
