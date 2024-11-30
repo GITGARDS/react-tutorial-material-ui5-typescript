@@ -1,5 +1,6 @@
+import { FormHandles } from "@unform/core";
 import { Form } from "@unform/web";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { FerramentasDeDetalhe } from "../../shared/components";
 import { VTextField } from "../../shared/forms";
@@ -8,6 +9,12 @@ import { PessoasService } from "../../shared/services/api/pessoas/PessoasService
 
 interface IDetalheDePessoasProps {}
 
+interface IFormData {
+  email: string;
+  cidadeId: string;
+  nomeCompleto: string;
+}
+
 export const DetalheDePessoas: React.FC<IDetalheDePessoasProps> = () => {
   const { id = "nova" } = useParams<"id">();
   const [isLoading, setIsLoading] = useState(false);
@@ -15,6 +22,8 @@ export const DetalheDePessoas: React.FC<IDetalheDePessoasProps> = () => {
   const [nome, setNome] = useState("");
 
   const navigate = useNavigate();
+
+  const formRef = useRef<FormHandles>(null);
 
   useEffect(() => {
     if (id !== "nova") {
@@ -34,9 +43,10 @@ export const DetalheDePessoas: React.FC<IDetalheDePessoasProps> = () => {
     }
   }, [id, isLoading]);
 
-  const handleSave = () => {
-    console.log("save");
+  const handleSave = (dados: IFormData) => {
+    console.log(dados);
   };
+  
   const handleDelete = useCallback(
     (id: number) => {
       if (window.confirm("Deseja realmente excluir?")) {
@@ -63,8 +73,8 @@ export const DetalheDePessoas: React.FC<IDetalheDePessoasProps> = () => {
           mostrarBotaoSalvarEFechar
           mostrarBotaoNovo={id !== "nova"}
           mostrarBotaoApagar={id !== "nova"}
-          aoClicarEmSalvar={handleSave}
-          aoClicarEmSalvarEFechar={handleSave}
+          aoClicarEmSalvar={() => formRef.current?.submitForm()}
+          aoClicarEmSalvarEFechar={() => formRef.current?.submitForm()}
           aoClicarEmApagar={() => handleDelete(Number(id))}
           aoClicarEmVoltar={() => navigate("/pessoas")}
           aoClicarEmNovo={() => navigate("/pessoas/detalhe/nova")}
@@ -74,15 +84,22 @@ export const DetalheDePessoas: React.FC<IDetalheDePessoasProps> = () => {
       {/* {isLoading && <LinearProgress variant="indeterminate" />} */}
       {/* <p>Detalhe de Pessoa {id}</p> */}
 
-      <Form  onSubmit={(dados) => console.log(dados)}
-        // placeholder={undefined} children={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}             
-        >      
-        <VTextField name="nomeCompleto" />
-        
-        <button type="submit">Submit</button> 
+      <Form
+        ref={formRef}
+        onSubmit={handleSave}
+        // placeholder={undefined} children={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
+      >
+        <VTextField name="email" label="Email" placeholder="Email" />
 
+        <VTextField
+          name="nomeCompleto"
+          label="Nome Completo"
+          placeholder="Nome Completo"
+        />
+        <VTextField name="cidadeId" label="Id Cidade" placeholder="Cidade id" />
+
+        <button type="submit">Submit</button>
       </Form>
-
     </LayoutBaseDePagina>
   );
 };
