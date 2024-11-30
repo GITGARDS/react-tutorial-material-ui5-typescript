@@ -70,7 +70,7 @@ const create = async (
   dados: Omit<IDetalhePessoa, "id">
 ): Promise<number | Error> => {
   try {
-    const { data } = await Api.post<IDetalhePessoa>("${urlService}", dados);
+    const { data } = await Api.post<IDetalhePessoa>(`${urlService}`, dados);
 
     if (data) {
       return data.id;

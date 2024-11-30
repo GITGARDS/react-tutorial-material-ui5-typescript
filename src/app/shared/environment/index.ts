@@ -16,6 +16,14 @@ export const Environment = {
    */
   EXCLUIDO_COM_SUCESSO: "Registro excluido com sucesso!",
   /**
+   * Texto exibido quando registro adcionado com sucesso
+   */
+  ADCIONADO_COM_SUCESSO: "Registro adicionado com sucesso!",
+  /**
+   * Texto exibido quando registro alterado com sucesso
+   */
+  ALTERADO_COM_SUCESSO: "Registro alterado com sucesso!",
+  /**
    * Url base de consultas dos dados dessa aplicacao
    */
   URL_BASE: "http://localhost:3001",

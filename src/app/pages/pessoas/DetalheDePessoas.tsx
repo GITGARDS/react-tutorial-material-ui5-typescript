@@ -1,8 +1,10 @@
+import { LinearProgress } from "@mui/material";
 import { FormHandles } from "@unform/core";
 import { Form } from "@unform/web";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { FerramentasDeDetalhe } from "../../shared/components";
+import { Environment } from "../../shared/environment";
 import { VTextField } from "../../shared/forms";
 import { LayoutBaseDePagina } from "../../shared/layouts";
 import { PessoasService } from "../../shared/services/api/pessoas/PessoasService";
@@ -11,7 +13,7 @@ interface IDetalheDePessoasProps {}
 
 interface IFormData {
   email: string;
-  cidadeId: string;
+  cidadeId: number;
   nomeCompleto: string;
 }
 
@@ -34,8 +36,7 @@ export const DetalheDePessoas: React.FC<IDetalheDePessoasProps> = () => {
           alert(result.message);
           navigate("/pessoas");
         } else {
-          console.log(result);
-          setNome(result.nomeCompleto);
+          formRef.current?.setData(result)          
         }
       });
     } else {
@@ -44,9 +45,32 @@ export const DetalheDePessoas: React.FC<IDetalheDePessoasProps> = () => {
   }, [id, isLoading]);
 
   const handleSave = (dados: IFormData) => {
-    console.log(dados);
+    if (id === "nova") {
+      setIsLoading(true);
+      PessoasService.create(dados).then((result) => {
+        setIsLoading(false);
+        if (result instanceof Error) {
+          alert(result.message);
+        } else {
+          navigate(`/pessoas/detalhe/${result}`);          
+          alert(Environment.ADCIONADO_COM_SUCESSO);
+        }
+      });
+    } else {
+      setIsLoading(true);
+      PessoasService.updateById(Number(id), { id: Number(id), ...dados }).then(
+        (result) => {
+          setIsLoading(false);
+          if (result instanceof Error) {
+            alert(result.message);
+          } else {
+            alert(Environment.ALTERADO_COM_SUCESSO);
+          }
+        }
+      );
+    }
   };
-  
+
   const handleDelete = useCallback(
     (id: number) => {
       if (window.confirm("Deseja realmente excluir?")) {
@@ -81,22 +105,32 @@ export const DetalheDePessoas: React.FC<IDetalheDePessoasProps> = () => {
         />
       }
     >
-      {/* {isLoading && <LinearProgress variant="indeterminate" />} */}
-      {/* <p>Detalhe de Pessoa {id}</p> */}
+      {isLoading && <LinearProgress variant="indeterminate" />}
 
       <Form
         ref={formRef}
         onSubmit={handleSave}
         // placeholder={undefined} children={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}
       >
-        <VTextField name="email" label="Email" placeholder="Email" />
+        <VTextField
+          name="email"
+          label="Email"
+          placeholder="Email"
+          type="email"
+        />
 
         <VTextField
           name="nomeCompleto"
           label="Nome Completo"
           placeholder="Nome Completo"
+          type="text"
         />
-        <VTextField name="cidadeId" label="Id Cidade" placeholder="Cidade id" />
+        <VTextField
+          name="cidadeId"
+          label="Id Cidade"
+          placeholder="Cidade id"
+          type="number"
+        />
 
         <button type="submit">Submit</button>
       </Form>
