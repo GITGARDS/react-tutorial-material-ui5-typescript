@@ -3,7 +3,7 @@ import { AppRoutes } from "./routes";
 import { MenuLateral } from "./shared/components";
 import { AppDrawerProvider } from "./shared/contexts";
 import { AppThemeProvider } from "./shared/contexts/ThemeContext";
-
+import './shared/forms/TraducoesYup';
 export const App = () => {
   return (
     <AppThemeProvider>
