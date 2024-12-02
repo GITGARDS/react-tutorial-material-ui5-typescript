@@ -67,11 +67,11 @@
       "nome": "anapolis"
     },
     {
-      "nome": "xinguara",
-      "id": 2
+      "id": 2,
+      "nome": "xinguara"
     }
   ],
   "auth": {
-    "accessToken": "aaaaa.aaaaa.aaaaa"
+    "accessToken": "aaaaaaaaaa.bbbbbbbbbb.cccccccc"
   }
 }
