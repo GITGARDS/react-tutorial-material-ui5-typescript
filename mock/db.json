@@ -8,9 +8,9 @@
     },
     {
       "id": "3",
-      "email": "registro3@email.com",
       "nomeCompleto": "registro3",
-      "cidadeId": 1
+      "email": "registro3@email.com",
+      "cidadeId": 2
     },
     {
       "id": "4",
@@ -26,9 +26,9 @@
     },
     {
       "id": "8",
-      "email": "registro8@email.com",
       "nomeCompleto": "registro8",
-      "cidadeId": "8"
+      "email": "registro8@email.com",
+      "cidadeId": 1
     },
     {
       "id": "9",
@@ -65,6 +65,10 @@
     {
       "id": 1,
       "nome": "anapolis"
+    },
+    {
+      "nome": "xinguara",
+      "id": 2
     }
   ]
 }
