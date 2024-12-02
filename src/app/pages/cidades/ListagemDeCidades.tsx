@@ -19,16 +19,16 @@ import { Environment } from "../../shared/environment";
 import { useDebounce } from "../../shared/hooks";
 import { LayoutBaseDePagina } from "../../shared/layouts";
 import {
-  IListagemPessoa,
-  PessoasService,
-} from "../../shared/services/api/pessoas/PessoasService";
+  CidadesService,
+  IListagemCidade,
+} from "../../shared/services/api/cidades/CidadesService";
 
-export const ListagemDePessoas = () => {
+export const ListagemDeCidades = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { debounce } = useDebounce(300, false);
   const navigate = useNavigate();
 
-  const [rows, setRows] = useState<IListagemPessoa[]>([]);
+  const [rows, setRows] = useState<IListagemCidade[]>([]);
   const [totalCount, setTotalCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -42,7 +42,7 @@ export const ListagemDePessoas = () => {
 
   const handleDelete = (id: number) => {
     if (window.confirm("Deseja realmente excluir?")) {
-      PessoasService.deleteById(id).then((result) => {
+      CidadesService.deleteById(id).then((result) => {
         if (result instanceof Error) {
           alert(result.message);
         } else {
@@ -58,7 +58,7 @@ export const ListagemDePessoas = () => {
   useEffect(() => {
     setIsLoading(true);
     debounce(() => {
-      PessoasService.getAll(pagina, busca).then((result) => {
+      CidadesService.getAll(pagina, busca).then((result) => {
         setIsLoading(false);
         if (result instanceof Error) {
           alert(result.message);
@@ -72,13 +72,13 @@ export const ListagemDePessoas = () => {
 
   return (
     <LayoutBaseDePagina
-      titulo="Listagem de Pessoas"
+      titulo="Listagem de Cidades"
       barraDeFerramentas={
         <FerramentasDaListagem
           mostrarInputBusca
           textoBotaoNovo="Nova"
           textoDaBusca={busca}
-          aoClicarEmNovo={() => navigate("/pessoas/detalhe/nova")}
+          aoClicarEmNovo={() => navigate("/cidades/detalhe/nova")}
           aoMudarTextoDaBusca={(texto) =>
             setSearchParams({ busca: texto, pagina: "1" }, { replace: true })
           }
@@ -94,8 +94,7 @@ export const ListagemDePessoas = () => {
           <TableHead>
             <TableRow>
               <TableCell width={100} >Ações</TableCell>
-              <TableCell>Nome Completo</TableCell>
-              <TableCell>Email</TableCell>
+              <TableCell>Nome</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -110,13 +109,12 @@ export const ListagemDePessoas = () => {
                   </IconButton>
                   <IconButton
                     size="small"
-                    onClick={() => navigate(`/pessoas/detalhe/${row.id}`)}
+                    onClick={() => navigate(`/cidades/detalhe/${row.id}`)}
                   >
                     <Icon>edit</Icon>
                   </IconButton>
                 </TableCell>
-                <TableCell>{row.nomeCompleto}</TableCell>
-                <TableCell>{row.email}</TableCell>
+                <TableCell>{row.nome}</TableCell>
               </TableRow>
             ))}
           </TableBody>

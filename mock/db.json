@@ -14,9 +14,9 @@
     },
     {
       "id": "4",
+      "nomeCompleto": "registro4",
       "email": "registro4@email.com",
-      "cidadeId": 1,
-      "nomeCompleto": "registro4"
+      "cidadeId": 1
     },
     {
       "id": "7",
@@ -59,6 +59,12 @@
       "nomeCompleto": "adriano ultimo",
       "cidadeId": "1",
       "id": "Sjzcgv2"
+    }
+  ],
+  "cidades": [
+    {
+      "id": 1,
+      "nome": "anapolis"
     }
   ]
 }
