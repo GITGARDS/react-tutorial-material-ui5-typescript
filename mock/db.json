@@ -70,5 +70,8 @@
       "nome": "xinguara",
       "id": 2
     }
-  ]
+  ],
+  "auth": {
+    "accessToken": "aaaaa.aaaaa.aaaaa"
+  }
 }

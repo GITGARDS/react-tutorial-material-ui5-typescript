@@ -20,7 +20,7 @@ export const LightTheme = createTheme({
     background: {
       paper: "#ffffff",
       // default: "#f7f6f3",
-      default: "#f2f4f7",
+      default: "#dfe6ec",
     },
   },
 });
